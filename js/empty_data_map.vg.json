@@ -10,6 +10,33 @@
       "feature": "suburb-2-vic"
     }
   },
+
+
+  "params": [
+    {
+      "name": "zoom_level",
+      "value": 1400,
+      "bind": {
+        "input": "range",
+        "min": 1000,
+        "max": 60000,
+        "step": 100,
+        "name": "Zoom: "
+      }
+    },
+    {
+      "name": "Year_selection",
+      "value": 2022,
+      "bind": {
+          "input": "range",
+          "min": 2010,
+          "max": 2023,
+          "step": 1,
+          "name": "Year:  "
+      }
+  }
+  ],
+  
   "projection": {
     "type": "mercator"
   },
@@ -38,14 +65,17 @@
           "lookup": "properties.vic_loca_2",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/leanne-b/homework-5/main/data/2022-suburb-median-house-price.csv"
+              "url": "https://raw.githubusercontent.com/leanne-b/FIT3179/master/data/median-house-price-long.csv"
             },
             "key": "locality",
             "fields": [
-              "Median"
+              "median",
+              "year"
             ]
           }
-        }
+          
+        },
+        { "filter": "datum.year == Year_selection" }
       ],
       "mark": {
         "type": "geoshape",
@@ -53,20 +83,25 @@
       },
       "encoding": {
         "color": {
-          "field": "Median",
+          "field": "median",
           "type": "quantitative",
+          "legend": {
+            "format": "$,.0f"
+          },
           "scale": {
+            "scheme": "reds",
+            "bins":{"step": 500000},
             "domain": [
-              100000,
               500000,
-              1000000,
-              5000000
+              
+              6000000
             ],
             "range": [
               "#fdbe85",
               "#fd8d3c",
               "#e6550d",
-              "#a63603"
+              "#a63603",
+              "#641E16"
             ]
           },
           "title": "Price ($)"
@@ -78,10 +113,11 @@
             "title": "Suburb"
           },
           {
-            "field": "Median",
+            "field": "median",
             "type": "quantitative",
             "format": "$,.0f"
-          }
+          },
+          { "field": "datum.year", "type": "temporal", "title": "Year" }
         ]
       }
     }
