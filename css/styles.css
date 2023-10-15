@@ -51,3 +51,29 @@ h1 {
 .small-font {
     font-size: 14px;
 }
+
+p {
+    line-height: 20px;
+}
+
+.top-five-list {
+    margin-top: 0px;
+}
+ol li{
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    
+}
+ol li div {
+    font-size: 16px;
+}
+ol li.a{
+    color: brown;
+    font-weight: "900";
+    
+}
+ol {
+    padding-left: 20px;
+}
