@@ -193,16 +193,17 @@
                         "type": "text",
                         "color": "black",
                         "size": 12,
-                        "align":"left",
+                        "align":"right",
                         "fontWeight":"bold",
                         "yOffset": 40,
-                        "xOffset": -10
-                        
+                        "xOffset": -0
                     },
-
                     "encoding": {
-                        "text":{ "field": "mean","type":"quantitative", "format":"$,0f","value": {"expr": "datum.median + 'A string 2012'"} }
-                       
+                        "text": {
+                            "field": "median",
+                            "type": "quantitative",
+                            "format": "$,"
+                        }
                     }
                 },
                 {
