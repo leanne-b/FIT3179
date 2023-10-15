@@ -1,0 +1,84 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A population pyramid for the affluent suburb in 2021.",
+    "title": {"text": "Female Male Population (2021)", "anchor": "middle", "offset":20},
+    "data": { "url": "https://raw.githubusercontent.com/leanne-b/FIT3179/topten/data/suburb_stats.csv"},
+    "spacing": 0,
+    "hconcat": [{
+      "title": "Female",
+      
+      "encoding": {
+        "y": {
+          "field": "locality", "type":"nominal", "axis": null},
+        "x": {
+            "field": "female",
+            "type": "quantitative",
+          "title": "population (%)",
+          "axis": {"format": "0f"},
+          "sort": "descending"
+        }
+      },
+      "layer": [{
+        "mark": {"type":"bar", "color": "#675193", "align":"left"}
+      },{
+        "mark": {
+          "type": "text",
+          "align": "right",
+          
+          "baseline": "middle",
+          "dx": -3
+        },
+        "encoding": {
+          "text": {"field": "female", "type": "quantitative", "format": ".0f"}
+        }
+      }]
+      
+    }, {
+      "width": 20,
+      "view": {"stroke": null},
+      "mark": {
+        "type": "text",
+        "align": "center"
+      },
+      "encoding": {
+        "y": {"field": "locality", "type": "nominal", "axis": null},
+        "text": {"field": "locality", "type": "nominal"}
+      }
+    }, {
+     
+      "title": "Male",
+      "encoding": {
+        "y": {
+          "field": "locality", 
+          "type": "nominal",
+          "title": null,
+          "axis": null
+        },
+        "x": {
+            "field": "male",
+            "type": "quantitative",
+          "title": "population (%)",
+          "axis": {"format": ".0f"}
+        }
+      }, 
+      "layer": [{
+        "mark": {"type":"bar", "color": "#ca8861"}
+      },{
+        "mark": {
+          "type": "text",
+          "align": "left",
+          
+          "baseline": "middle",
+          "dx": 3
+        },
+        "encoding": {
+          "text": {"field": "male", "type": "quantitative", "format": ".0f"}
+        }
+      }]
+     
+    }],
+    "config": {
+      "view": {"stroke": null},
+      "axis": {"grid": false}
+    }
+  }
