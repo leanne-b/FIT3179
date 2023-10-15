@@ -1,6 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Suburban Median House Prices (2022)",
+  "title": {
+    "text": "Suburban Median House Prices (2022)",
+    "subtitle": "Use the chloropleth map to explore how the most expensive suburbs change over time",
+    "subtitleColor": "gray",
+    "subtitleFontWeight": 500,
+    "subtitlePadding": 5,
+    "fontSize": 28,
+    "anchor": "start"
+  },
   "width": "container",
   "height": 500,
   "params": [
@@ -45,7 +53,6 @@
       "expr": "zoom_level"
     }
   },
-
   "layer": [
     {
       "data": {
@@ -179,13 +186,27 @@
         "latitude": {
           "field": "lat",
           "type": "quantitative"
+        },
+        "opacity": {
+          "condition": {
+            "param": "show_top_five",
+            "value": 1
+          },
+          "value": 0
         }
       },
       "layer": [
         {
           "mark": {
             "type": "circle",
+            "shape": "triangle",
             "color": "black"
+          },
+          "encoding": {
+            "text": {
+              "field": "Suburb",
+              "type": "nominal"
+            }
           }
         },
         {
@@ -193,29 +214,19 @@
             "type": "text",
             "dy": -0,
             "dx": -10,
-
             "color": "black",
-            "align":"right",
-            "fontWeight":"bold"
+            "align": "right",
+            "fontWeight": "bold"
           },
           "encoding": {
             "text": {
               "field": "Suburb",
               "type": "nominal"
-              
-            },
-            "opacity": {
-              "condition": {
-                "param": "show_top_five",
-                "value": 1
-              },
-              "value": 0
             }
           }
         }
       ]
     }
-    
   ],
   "config": {
     "scale": {},
