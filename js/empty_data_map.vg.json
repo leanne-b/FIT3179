@@ -6,11 +6,11 @@
   "params": [
     {
       "name": "zoom_level",
-      "value": 40000,
+      "value": 60000,
       "bind": {
         "input": "range",
-        "min": 20000,
-        "max": 60000,
+        "min": 50000,
+        "max": 80000,
         "step": 100,
         "name": "Zoom: "
       }
@@ -19,34 +19,48 @@
       "name": "Year_selection",
       "value": 2022,
       "bind": {
-          "input": "range",
-          "min": 2012,
-          "max": 2022,
-          "step": 1,
-          "name": "Year:  "
+        "input": "range",
+        "min": 2012,
+        "max": 2022,
+        "step": 1,
+        "name": "Year:  "
       }
-  }
+    },
+    {
+      "name": "show_top_five",
+      "value": true,
+      "bind": {
+        "input": "checkbox",
+        "name": "Show Top 5 Most Expensive Suburbs: "
+      }
+    }
   ],
-  
   "projection": {
     "type": "mercator",
-    "center": [144.95, -37.83],
-    "scale": {"expr": "zoom_level"}
+    "center": [
+      144.95,
+      -37.83
+    ],
+    "scale": {
+      "expr": "zoom_level"
+    }
   },
+
   "layer": [
-    {"data": {
-      "url": "https://raw.githubusercontent.com/leanne-b/homework-5/main/js/suburb-2-vic.json",
-      "format": {
-        "type": "topojson",
-        "feature": "suburb-2-vic"
-      }
-    },
-    "mark": {
-      "type": "geoshape",
-      "fill": "#ddd",
-      "stroke": "#fff",
-      "strokeWidth": 1
-    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/leanne-b/homework-5/main/js/suburb-2-vic.json",
+        "format": {
+          "type": "topojson",
+          "feature": "suburb-2-vic"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#ddd",
+        "stroke": "#fff",
+        "strokeWidth": 1
+      },
       "transform": [
         {
           "calculate": "'Data is not available in ' + datum.properties.vic_loca_2",
@@ -75,30 +89,44 @@
               }
             },
             "key": "properties.vic_loca_2"
-           
           },
           "as": "geo"
-          
         },
-        { "filter": "datum.year == Year_selection" }
+        {
+          "filter": "datum.year == Year_selection"
+        }
       ],
-
       "mark": {
         "type": "geoshape",
         "stroke": "white"
       },
       "encoding": {
-        "shape": {"field":"geo",  "type":"geojson"},
+        "shape": {
+          "field": "geo",
+          "type": "geojson"
+        },
         "color": {
           "field": "median",
           "type": "quantitative",
           "legend": {
             "format": "$,.0f"
           },
-          "bin": {"steps": [1000000], "maxbins": 8, "extent":[0, 6500000]},
+          "bin": {
+            "steps": [
+              1000000
+            ],
+            "maxbins": 8,
+            "extent": [
+              0,
+              6500000
+            ]
+          },
           "scale": {
             "type": "bin-ordinal",
-            "scheme": {"name": "goldred", "count": 16}
+            "scheme": {
+              "name": "orangered",
+              "count": 16
+            }
           },
           "title": "Price ($)"
         },
@@ -113,43 +141,84 @@
             "type": "quantitative",
             "format": "$,.0f"
           },
-          { "field": "year", "type": "nominal", "title": "Year" }
+          {
+            "field": "year",
+            "type": "nominal",
+            "title": "Year"
+          }
         ]
       }
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/leanne-b/FIT3179/master/data/median-house-price-long.csv"
+        "url": "https://raw.githubusercontent.com/leanne-b/FIT3179/topten/data/top-5-suburbs-year.csv"
       },
       "transform": [
         {
-          "lookup": "locality",
+          "lookup": "Suburb",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/leanne-b/homework-5/main/js/suburb-2-vic.json",
-              "format": {
-                "type": "topojson",
-                "feature": "suburb-2-vic"
-              }
+              "url": "https://raw.githubusercontent.com/leanne-b/FIT3179/topten/data/vic-suburbs-latlong.csv"
             },
-            "key": "properties.vic_loca_2"
-           
-          },
-          "as": "geo"
-          
+            "key": "locality",
+            "fields": [
+              "lat",
+              "long"
+            ]
+          }
         },
-        { "filter": "datum.year == Year_selection" }
+        {
+          "filter": "datum.Year == Year_selection"
+        }
       ],
-
-      "mark": {
-        "type": "geoshape",
-        "stroke": "white"
+      "encoding": {
+        "longitude": {
+          "field": "long",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        }
       },
-      "encoding": {}}
+      "layer": [
+        {
+          "mark": {
+            "type": "circle",
+            "color": "black"
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "dy": -0,
+            "dx": -10,
+
+            "color": "black",
+            "align":"right",
+            "fontWeight":"bold"
+          },
+          "encoding": {
+            "text": {
+              "field": "Suburb",
+              "type": "nominal"
+              
+            },
+            "opacity": {
+              "condition": {
+                "param": "show_top_five",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+    }
+    
   ],
   "config": {
     "scale": {},
     "range": {}
   }
-
 }
