@@ -1,0 +1,93 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "repeat": {
+        "layer": [
+            "Income",
+            "Rent",
+            "Mortgage"
+        ]
+    },
+    "spec": {
+        "mark": "bar",
+        "data": {
+            "url": "data/suburb_stats.csv"
+        },
+        "width":"600",
+
+        
+        "title": {"text":"Weekly Income vs Rent & Mortgage Costs",
+        "anchor":"start", "dx": 50},
+        "transform": [{"calculate": "split(datum.locality, ' ')", "as": "labels"},
+            {"calculate": "datum.monthly_mortgage/4", "as": "Mortgage"},
+            {"calculate": "datum.weekly_income", "as": "Income"},
+            {"calculate": "datum.weekly_rent", "as": "Rent"}
+        ],
+        "encoding": {
+            "x": {
+                "field": "labels",
+                "type": "nominal",
+                "title": "Suburb",
+                "axis": {
+                    "labelAlign": "center",
+                    "labelAngle": 0,
+                    "labelLimit": 70,
+                    "labelSeparation": 20
+                }
+            },
+            "y": {
+                "field": {
+                    "repeat": "layer"
+                },
+                "type": "quantitative",
+                "title": "",
+                "axis": {
+                    "format": "$,.0f",
+                    "title": "Income / Costs"
+                }
+            },
+            "color": {
+                "datum": {
+                    "repeat": "layer"
+                },
+                "title": "",
+                "legend": {
+                    "orient": "top",
+                    "direction": "horizontal",
+                    "legendX": 150,
+                    "legendY": -25, 
+                    "padding": 0
+                    
+                }
+            },
+            "xOffset": {
+                "datum": {
+                    "repeat": "layer"
+                }
+            },
+            "tooltip":[ {
+                "field": "Income",
+                "type": "quantitative",
+                "title": "Income",
+                "format": "$,.0f"
+            }, {
+                "field": "Rent",
+                "type": "quantitative",
+                "title": "Rent",
+                "format": "$,.0f"
+            },
+            {
+                "field": "Mortgage",
+                "type": "quantitative",
+                "title": "Mortgage",
+                "format": "$,.0f"
+            }
+        ]
+
+        }
+    },
+    "config": {
+        "mark": {
+            "invalid": null
+        }
+    }
+}

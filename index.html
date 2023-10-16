@@ -132,32 +132,49 @@
     <!-- end pure grid group -->
     <!-- pure grid group -->
     <div class="pure-g">
-      <div class="pure-u-1-2">
+      <div class="pure-u-1-3">
         <div class="description description-left">
-         <h2>Comparing Suburbs</h2>
- Use the dropdown to compare the most affluent suburbs based on factors.
-
-          <p> The most affluent neighbourhoods share a lot in common. They have a similar median age of 40 - 45, with
-            the population of females and males being even. </p>
-          <p> At least 50% of the population has achieved their Bachelor's degree and work full time. The average income
-            is between $2,500 - $2,600. The average <b> monthly mortgage is $2000 - $3500 </b> and <b>weekly rent is $450 - $600.</b></p>
+          <h2>Comparing Suburbs</h2>
+          This section compares the most affluent suburbs based on demograhpics factors sourced from the ABS Census
+          2021.
+          <p>The average <b> monthly mortgage is $2000 - $3500 </b> and <b>weekly rent is $450 - $600.</b></p>
+          The average income
+          is between $2,500 - $2,600.
           <p> Source: ABS Census 2021
           </p>
         </div>
       </div>
-      <div class="pure-u-1-2">
-        <div class="description description-right">
-          <div id="vis3" class="vis-container"></div>
-        </div>
-        
+      <div class="pure-u-2-3">
+
+        <div id="vis3" class="vis-container"></div>
       </div>
+
+
     </div>
-<div class="pure-g">
-      <div class="pure-u-1-2">
-        <div id="vis4" class="vis-container"></div>
+    <div class="pure-g">
+      <div class="pure-u-2-3">
+
+          <div id="vis4" class="vis-container"></div>
+
 
       </div>
+      <div class="pure-u-1-3">
+        <div class="description">
+          <p> The most affluent neighbourhoods share a lot in common. They have a similar median age of 40 - 45, with
+            the population of females and males being even. </p>
+          <p> At least 50% of the population has achieved their Bachelor's degree and work full time. </p>
+        </div>
+      </div>
     </div>
+    <!-- <div class="pure-g">
+      <div class="pure-u-1-1">
+
+          <div id="vis5" class="vis-container"></div>
+
+
+      </div>
+      
+    </div> -->
     <!-- end pure grid group -->
 
 
@@ -165,8 +182,9 @@
   <script type="text/javascript">
     var spec1 = "js/suburb_median_line_chart.json"
     var spec2 = "js/empty_data_map.vg.json";
-    var spec3 = "js/metrics.json";
-    var spec4 = "js/p_coords.json";
+    var spec4 = "js/metrics.json";
+    var spec5 = "js/p_coords.json";
+    var spec3 = "js/income_rent.json";
     var options = { "actions": false };
     vegaEmbed('#vis1', spec2, options).then(function (result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
@@ -180,7 +198,10 @@
     vegaEmbed('#vis4', spec4, options).then(function (result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
-  </script>
+    vegaEmbed('#vis5', spec5, options).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+    </script>
 
 </body>
 

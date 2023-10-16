@@ -80,3 +80,12 @@ ol li.a{
 ol {
     padding-left: 20px;
 }
+
+#vis3 {
+    padding-top: 0px;
+}
+
+#vis4 {
+    /* margin-right: 20px; */
+    width: 100%;
+}

@@ -1,22 +1,56 @@
-
-
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Suburb Statistics",
-    "repeat": {"column": ["pop_sqkm","weekly_income","working_population","weekly_rent","monthly_mortgage","median_age","bachelors"]},
-    "columns": 2,
     "data": {
         "url": "data/suburb_stats.csv"
     },
-    "spec": {
-        "width": 150,
-        "height": 50,
-      "mark": "bar",
-      "encoding": {
-        "x": {"field": {"repeat": "column"}, "bin": {"maxbins": 20}},
-        "y": { "field": "locality", "type": "nominal"},
-        "color": {"field": "locality", "type": "nominal"}
-      }
+    "hconcat": [
+        {
+            "title": "Gross",
+            "repeat": {
+                "column": [
+                    "working_population",
+                    "bachelors",
+                    "pop_sqkm"
+                ]
+            },
+            "spec": {
+                "width": "container",
+                "height": 50,
+                "encoding": {
+                    "y": {
+                        "field": {
+                            "repeat": "column"
+                        },
+                        "type": "quantitative"
+                    },
+                    "x": {
+                        "field": "locality",
+                        "type": "nominal",
+                        "axis": {
+
+                                "labelAngle": 0
+
+                        }
+                    },
+                    "color": {
+                        "field": "locality",
+                        "type": "nominal"
+                    }
+
+                },
+                "mark": "bar"
+            }
+        }
+    ],
+    "resolve": {
+        "scale": {
+            "color": "independent"
+        }
+    },
+    "config": {
+        "mark": {
+            "invalid": null
+        }
     }
-  }
-  
+}

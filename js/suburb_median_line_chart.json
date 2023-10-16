@@ -7,33 +7,29 @@
     "title": {
         "text": {
             "expr": "suburb + ' Median House Prices'"
-        }
+        },
+        "subtitle": "Hover on a yearly point for more details",
+        "subtitleColor": "gray"
     },
     "width": "container",
     "params": [
         {
             "name": "suburb",
-            "value": "ABBOTSFORD",
+            "value": "BRIGHTON",
             "bind": {
                 "input": "select",
                 "options": [
-                    "ARMADALE",
                     "BRIGHTON",
                     "CANTERBURY",
-                    "DEEPDENE",
                     "EAST MELBOURNE",
                     "MALVERN",
-                    "MIDDLE PARK",
                     "TOORAK"
                 ],
                 "labels": [
-                    "ARMADALE",
                     "BRIGHTON",
                     "CANTERBURY",
-                    "DEEPDENE",
                     "EAST MELBOURNE",
                     "MALVERN",
-                    "MIDDLE PARK",
                     "TOORAK"
                 ],
                 "name": "Suburb: "
@@ -95,7 +91,6 @@
     "layer": [
         {"mark": {
             "type": "line",
-    
             "color": "red",
             "clip": false
         },
@@ -112,6 +107,17 @@
                     "argmin": "year"
                 }
             }
+        }},
+        {"mark": {
+            "type": "point",
+            "filled": true,
+
+            "color": "red"
+            
+        },
+        "encoding": {
+            
+            
         }},
         {
             "transform": [
